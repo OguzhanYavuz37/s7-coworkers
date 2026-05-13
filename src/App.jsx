@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import NewMemberForm from "./components/NewMemberForm";
+import CoworkerList from "./components/CoworkerList";
 
 const team = [
   { fullName: "John Doe", email: "john.doe@somewhere.com", notes: "" },
@@ -12,25 +14,20 @@ const team = [
 
 function App() {
   const [members, setMembers] = useState(team);
+  function handleAddMember(newMember) {
+    setMembers([...members, newMember]);
+  }
 
   return (
     <div className="main-container">
       <div className="mid-container">
         <div className="form-container">
-          <h2>Takım arkadaşı ekle</h2>
-          {/*
-            NewMemberForm componentı aşağıdaki gibi kullanılmalı.
-            Gerekli dosyayı oluşturup kodları yazdıktan sonra alttaki satırı yorumdan çıkar.
-          */}
-          {/* <NewMemberForm addMember={handleAddMember} /> */}
+          <h2>Takım arkadaşı ekle</h2>          
+          <NewMemberForm addMember={handleAddMember} />
         </div>
         <div className="list-container">
           <h2>Takım arkadaşların</h2>
-          {/*
-            CoworkerList componentı aşağıdaki gibi kullanılmalı.
-            Gerekli dosyayı oluşturup kodları yazdıktan sonra alttaki satırı yorumdan çıkar.
-          */}
-          {/* <CoworkerList members={members} /> */}
+          <CoworkerList members={members} />
         </div>
       </div>
     </div>
