@@ -9,22 +9,30 @@ const initialForm = {
 };
 export default function NewMemberForm({ addMember }) {
     const [formData, setFormData] = useState(initialForm);
+    
     function handleChange(event) {
         const {name, value} = event.target;
-        setFormData({...formData, [name]:value}); 
+        
+    setFormData({...formData, [name]: value,}); 
     }
     function handleSubmit(event) {
-        event.preventdefault();
-        axios
-        .post("https://jsonplaceholder.typicode.com/posts", formData)
-        .then((response) => {
-            addMember(response.data);
-            setFormData(initialForm);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    }
+        event.preventDefault();
+
+        const newMember = {
+            fullName: formData.fullName,
+            email: formData.email,
+            notes: formData.notes,
+        };
+    axios
+    .post("https://jsonplaceholder.typicode.com/posts", newMember)
+    .then(() => {
+        addMember(newMember);
+        setFormData(initialForm);
+    })
+    .catch((error) => {
+        console.error(error);
+    });     
+  }
     return (
         <Form onSubmit={handleSubmit}>
             <FormGroup>
@@ -33,7 +41,6 @@ export default function NewMemberForm({ addMember }) {
                  id="fullName"
                  name="fullName"
                  type="text"
-                 placeholder="örn. Ali Veli"
                  value={formData.fullName}
                  onChange={handleChange}
                 />
@@ -44,7 +51,6 @@ export default function NewMemberForm({ addMember }) {
                  id="email"
                  name="email"
                  type="email"
-                 placeholder="örn. ali@veli.com"
                  value={formData.email}
                  onChange={handleChange}
                 />
@@ -55,12 +61,11 @@ export default function NewMemberForm({ addMember }) {
                  id="notes"
                  name="notes"
                  type="textarea"
-                 placeholder="Talented, curious"
                  value={formData.notes}
                  onChange={handleChange}
                 />
             </FormGroup>
-            <Button color="primary">Kaydet</Button>
+            <Button type="submit">Kaydet</Button>
         </Form>
     );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import NewMemberForm from "./components/NewMemberForm";
 import CoworkerList from "./components/CoworkerList";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const team = [
   { fullName: "John Doe", email: "john.doe@somewhere.com", notes: "" },
@@ -15,7 +16,7 @@ const team = [
 function App() {
   const [members, setMembers] = useState(team);
   function handleAddMember(newMember) {
-    setMembers([...members, newMember]);
+    setMembers((prevMembers) => [...prevMembers, newMember]);
   }
 
   return (
